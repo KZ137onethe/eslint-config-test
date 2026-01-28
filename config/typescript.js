@@ -137,6 +137,22 @@ export function typescript(status = "default") {
               ignoreVoidReturningFunctions: false,
             },
           ],
+          // 不允许使用 JSDoc 标记为 @deprecated 的代码（弃用代码）
+          "ts/no-deprecated": "error",
+          // 不允许重复的枚举值
+          "ts/no-duplicate-enum-values": "error",
+          // 不允许并集或交集类型的重复成分。
+          "ts/no-duplicate-type-constituents": [
+            "error",
+            {
+              // 不忽略交集
+              ignoreIntersections: false,
+              // 忽略并集
+              ignoreUnions: true,
+            },
+          ],
+          // 不允许使用 delete 删除可以计算的操作符上的键
+          "ts/no-dynamic-delete": "error",
         },
         // 传递给typescript配置来启用类型感知规则
         tsconfigPath: "tsconfig.json",
@@ -161,10 +177,13 @@ export function typescript(status = "default") {
         "ts/init-declarations": ["error", "always"],
         // 在函数中参数限制不超过n个，在下面限制最多为3个，this会被记为参数，this被推断为void时，不会记为参数
         "max-params": "off",
-        "@typescript-eslint/max-params": ["error", { countVoidThis: false, max: 3 }],
+        "ts/max-params": ["error", { countVoidThis: false, max: 3 }],
         // 不允许不标识类型的数组构造函数
         "no-array-constructor": "off",
-        "@typescript-eslint/no-array-constructor": "error",
+        "ts/no-array-constructor": "error",
+        // 不允许重复的类成员(ts的方法重载)
+        "no-dupe-class-members": "off",
+        "ts/no-dupe-class-members": "error",
       },
     };
   }
