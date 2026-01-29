@@ -153,6 +153,32 @@ export function typescript(status = "default") {
           ],
           // 不允许使用 delete 删除可以计算的操作符上的键
           "ts/no-dynamic-delete": "error",
+          // 不允许意外的使用空对象
+          "ts/no-empty-object-type": [
+            "error",
+            {
+              // 允许从单个基本接口扩展出来的空接口
+              allowInterfaces: "with-single-extends",
+              // 不允许空对象字面量
+              allowObjectTypes: "never",
+              // 允许下面符合正则表达式的规则的名称使用空对象 (暂未设置)
+              allowWithName: "",
+            },
+          ],
+          // 不允许 any 类型
+          "ts/no-explicit-any": [
+            "error",
+            {
+              // 不能将 any 类型修复成 unknown 类型
+              fixToUnknown: false,
+              // 不忽略 剩余参数数组
+              ignoreRestArgs: false,
+            },
+          ],
+          // 不允许额外的非空断言
+          "ts/no-extra-non-null-assertion": "error",
+          // TODO: 不允许类用作命名空间
+          "ts/no-extraneous-class": "error",
         },
         // 传递给typescript配置来启用类型感知规则
         tsconfigPath: "tsconfig.json",
@@ -184,6 +210,20 @@ export function typescript(status = "default") {
         // 不允许重复的类成员(ts的方法重载)
         "no-dupe-class-members": "off",
         "ts/no-dupe-class-members": "error",
+        // 不允许空函数
+        "no-empty-function": "off",
+        "ts/no-empty-function": [
+          "error",
+          {
+            // 下面函数为空时允许的：私有构造函数，装饰器函数，受保护的构造函数，子类覆盖父类的方法
+            allow: [
+              "private-constructors",
+              "protected-constructors",
+              "decoratedFunctions",
+              "overrideMethods",
+            ],
+          },
+        ],
       },
     };
   }
