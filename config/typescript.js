@@ -177,8 +177,53 @@ export function typescript(status = "default") {
           ],
           // 不允许额外的非空断言
           "ts/no-extra-non-null-assertion": "error",
-          // TODO: 不允许类用作命名空间
-          "ts/no-extraneous-class": "error",
+          // 不允许类用作命名空间
+          "ts/no-extraneous-class": [
+            "error",
+            {
+              allowConstructorOnly: false,
+              allowEmpty: false,
+              allowStaticOnly: false,
+              allowWithDecorator: false,
+            },
+          ],
+          // 对 Promise 语句做处理
+          "ts/no-floating-promises": [
+            "error",
+            {
+              checkThenables: false,
+              // 忽略空表达式。
+              ignoreVoid: true,
+              // 忽略异步IIFE（立即调用的函数表达式）
+              ignoreIIFE: true,
+              //
+              allowForKnownSafePromises: [],
+              //
+              allowForKnownSafeCalls: [],
+            },
+          ],
+          // 禁止使用 for ... in ... 循环迭代数组
+          "ts/no-for-in-array": "error",
+          // 当导入只有带内联类型限定符的说明符时，强制使用顶级导入类型限定符。import { type A } from "xxx" => import type { A } from "xxx"
+          "ts/no-import-type-side-effects": "error",
+          // 不允许对初始化为数字、字符串或布尔值的变量或参数进行显式类型声明。(因为 ts 可以推断出来，显示类型声明是多余的)
+          "ts/no-inferrable-types": [
+            "error",
+            {
+              // 忽略函数参数
+              ignoreParameters: true,
+              // 忽略属性
+              ignoreProperties: true,
+            },
+          ],
+          // 不允许泛型或返回类型之外的 void 类型
+          "ts/no-invalid-void-type": [
+            "error",
+            {
+              allowInGenericTypeArguments: true,
+              allowAsThisParameter: true,
+            },
+          ],
         },
         // 传递给typescript配置来启用类型感知规则
         tsconfigPath: "tsconfig.json",
@@ -224,6 +269,9 @@ export function typescript(status = "default") {
             ],
           },
         ],
+        // 不允许使用类似于 eval 的函数
+        "no-implied-eval": "off",
+        "ts/no-implied-eval": "error",
       },
     };
   }
