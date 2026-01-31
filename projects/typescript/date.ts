@@ -1,39 +1,28 @@
-class DateHandler {
-  public static getCurrentTime(options?: { format?: string }) {
-    const result = {
-      value: undefined,
-    };
-    Object.defineProperty(result, "value", {
-      writable: true,
-      configurable: false,
-      enumerable: false,
-      value: new Date().toLocaleTimeString("zh-CN"),
-    });
+function getCurrentTime(options?: { format?: string }) {
+  const INIT_VALUE = new Date().toLocaleTimeString("zh-CN");
 
-    if (options?.format !== undefined) {
-      return String(result.value).replace(/:/g, options.format);
-    }
-    return result.value;
+  if (options?.format !== undefined) {
+    return String(INIT_VALUE).replace(/:/g, options.format);
   }
-
-  public static getCurrentDate(options?: { format?: string }) {
-    const result = {
-      value: undefined,
-    };
-    Object.defineProperty(result, "value", {
-      writable: true,
-      configurable: false,
-      enumerable: false,
-      value: new Date().toLocaleDateString("zh-CN"),
-    });
-
-    if (options?.format !== undefined) {
-      return String(result.value).replace(/:/g, options.format);
-    }
-    return result.value;
-  }
+  return INIT_VALUE;
 }
 
-const time = DateHandler.getCurrentDate({ format: "-" });
+function getCurrentDate(options?: { format?: string }) {
+  const INIT_VALUE = new Date().toLocaleDateString("zh-CN");
+  const [year, month, day] = INIT_VALUE.split("/");
+  let defaultVal = INIT_VALUE;
+  // 如果月份的位数为1，则修正
+  if (month.length === 1) {
+    defaultVal = `${year}/${`0${month}`}/${day}`;
+  }
 
-console.log(time);
+  if (options?.format !== undefined) {
+    return String(defaultVal).replace(/:/g, options.format);
+  }
+  return defaultVal;
+}
+
+const time = getCurrentTime({ format: "-" });
+const date = getCurrentDate();
+
+console.log(`${date} ${time}`);
