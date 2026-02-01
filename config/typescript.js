@@ -224,6 +224,10 @@ export function typescript(status = "default") {
               allowAsThisParameter: true,
             },
           ],
+          // 除非用于丢弃值，否则不允许使用void运算符。
+          "ts/no-meaningless-void-operator": "error",
+          // 强制 new操作符 和 constructor方法的有效定义
+          "ts/no-misused-new": "error",
         },
         // 传递给typescript配置来启用类型感知规则
         tsconfigPath: "tsconfig.json",
@@ -272,6 +276,24 @@ export function typescript(status = "default") {
         // 不允许使用类似于 eval 的函数
         "no-implied-eval": "off",
         "ts/no-implied-eval": "error",
+        // 不允许在循环语句中包含不安全引用的函数声明
+        "no-loop-func": "off",
+        "ts/no-loop-func": "error",
+        // 不允许使用魔幻数字
+        "no-magic-numbers": "off",
+        "ts/no-magic-numbers": [
+          "error",
+          {
+            // 枚举是可以使用数字的
+            ignoreEnums: true,
+            // 数字类型是可以使用的
+            ignoreNumericLiteralTypes: true,
+            // 忽略只读的类属性（数字）
+            ignoreReadonlyClassProperties: true,
+            // 不允许使用索引类型
+            ignoreTypeIndexes: false,
+          },
+        ],
       },
     };
   }

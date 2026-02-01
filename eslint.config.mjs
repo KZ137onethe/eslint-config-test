@@ -25,7 +25,9 @@ export default antfu(
   {
     rules: {
       "prefer-const": "warn",
+      // 对没有使用的变量，会报 warn 警告
       "no-unused-vars": "off",
+      "unused-imports/no-unused-vars": "warn",
       // 不允许使用 console，会报 warn 警告，但console.warn和console.error可以使用
       "no-console": ["warn", { allow: ["warn", "error"] }],
     },
