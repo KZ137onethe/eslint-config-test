@@ -1,3 +1,16 @@
+/*
+	eslint typescript 规则
+	不使用的插件
+		1. no-unused-vars
+		2. consistent-return
+		3. member-ordering
+		4. no-dupe-class-members
+		5. no-invalid-this
+	废弃的插件
+		1. no-empty-interface
+		2. no-loss-of-precision
+*/
+
 export function typescript(status = "default") {
   if (status === "default") return {};
   if (status === "off") {
@@ -256,9 +269,6 @@ export function typescript(status = "default") {
         // 不允许不标识类型的数组构造函数
         "no-array-constructor": "off",
         "ts/no-array-constructor": "error",
-        // 不允许重复的类成员(ts的方法重载)
-        "no-dupe-class-members": "off",
-        "ts/no-dupe-class-members": "error",
         // 不允许空函数
         "no-empty-function": "off",
         "ts/no-empty-function": [

@@ -9,10 +9,11 @@ function getCurrentTime(options?: { format?: string }) {
 
 function getCurrentDate(options?: { format?: string }) {
   const INIT_VALUE = new Date().toLocaleDateString("zh-CN");
+  // 短月份长度
+  const MONTH_SHORT_LEN = 1;
   const [year, month, day] = INIT_VALUE.split("/");
   let defaultVal = INIT_VALUE;
-  // 如果月份的位数为1，则修正
-  if (month.length === 1) {
+  if (month.length === MONTH_SHORT_LEN) {
     defaultVal = `${year}/${`0${month}`}/${day}`;
   }
 
@@ -26,3 +27,8 @@ const time = getCurrentTime({ format: "-" });
 const date = getCurrentDate();
 
 console.log(`${date} ${time}`);
+
+// eslint-disable-next-line ts/naming-convention
+enum foo {
+  SendCond = 1000,
+}
