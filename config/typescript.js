@@ -1,11 +1,14 @@
 /*
 	eslint typescript 规则
-	不使用的插件
+	不使用的插件（明确禁用）
 		1. no-unused-vars
 		2. consistent-return
 		3. member-ordering
 		4. no-dupe-class-members
 		5. no-invalid-this
+  没有启用的插件（没有配置该规则）
+		1. no-non-null-assertion
+		2. no-restricted-imports
 	废弃的插件
 		1. no-empty-interface
 		2. no-loss-of-precision
@@ -241,6 +244,40 @@ export function typescript(status = "default") {
           "ts/no-meaningless-void-operator": "error",
           // 强制 new操作符 和 constructor方法的有效定义
           "ts/no-misused-new": "error",
+          // 不允许在不合适用 Promise 的地方使用 Promise
+          "ts/no-misused-promises": [
+            "error",
+            {
+              // 不允许在条件语句中使用 Promise
+              checksConditionals: true,
+              // 不检查 函数的void 返回
+              checksVoidReturn: false,
+              // 检查 ... 运算符解构 Promise
+              checksSpreads: true,
+            },
+          ],
+          // 不误用 ... 运算符
+          "ts/no-misused-spread": "error",
+          // 不混合使用 数字枚举 和 字符串枚举
+          "ts/no-mixed-enums": "error",
+          // 不使用 Typescript 命名空间
+          "ts/no-namespace": [
+            "error",
+            {
+              // 不允许使用自定义TypeScript命名空间进行声明
+              allowDeclarations: false,
+              // 可以在 .d.ts 中使用自定义命名空间
+              allowDefinitionFiles: true,
+            },
+          ],
+          // 不允许在 ?? 左侧使用非空断言(!)
+          "ts/no-non-null-asserted-nullish-coalescing": "error",
+          // 不允许在可选链表达式后使用非空断言。
+          "ts/no-non-null-asserted-optional-chain": "error",
+          // 不允许 联合类型 和 交叉类型 啥也不做或者 覆盖类型信息
+          "ts/no-redundant-type-constituents": "error",
+          // 不允许 使用 require
+          "ts/no-require-imports": "error",
         },
         // 传递给typescript配置来启用类型感知规则
         tsconfigPath: "tsconfig.json",
@@ -302,6 +339,15 @@ export function typescript(status = "default") {
             ignoreReadonlyClassProperties: true,
             // 不允许使用索引类型
             ignoreTypeIndexes: false,
+          },
+        ],
+        // 不允许变量重复声明
+        "no-redeclare": "off",
+        "ts/no-redeclare": [
+          "error",
+          {
+            // 忽略某些TypeScript声明类型之间的声明合并
+            ignoreDeclarationMerge: true,
           },
         ],
       },
