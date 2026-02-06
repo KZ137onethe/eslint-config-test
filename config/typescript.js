@@ -9,9 +9,11 @@
   没有启用的插件（没有配置该规则）
 		1. no-non-null-assertion
 		2. no-restricted-imports
+		3. no-restricted-types
 	废弃的插件
 		1. no-empty-interface
 		2. no-loss-of-precision
+		3. no-type-alias
 */
 
 export function typescript(status = "default") {
@@ -278,6 +280,56 @@ export function typescript(status = "default") {
           "ts/no-redundant-type-constituents": "error",
           // 不允许 使用 require
           "ts/no-require-imports": "error",
+          // 不允许 混淆 this
+          "ts/no-this-alias": [
+            "error",
+            {
+              // 是否允许解构 this
+              allowDestructuring: true,
+              // 允许 this 能被赋值的名称，有需要的时候很有用，但默认不配置
+              allowedNames: [],
+            },
+          ],
+          // 不允许 对布尔值和布尔值字面量 进行不必要的比较
+          "ts/no-unnecessary-boolean-literal-compare": [
+            "error",
+            {
+              // 允许 null 和 true 进行比较
+              allowComparingNullableBooleansToTrue: true,
+              // 允许 null 和 false 进行比较
+              allowComparingNullableBooleansToFalse: true,
+            },
+          ],
+          // 不允许类型总是 类似于true 和 类似于false 的条件语句
+          "ts/no-unnecessary-condition": [
+            "error",
+            {
+              // 可以允许 true, false, 0, 1 这样的循环条件语句
+              allowConstantLoopConditions: "only-allowed-literals",
+              // 不检查类型谓词函数的断言参数是否存在不必要的条件
+              checkTypePredicates: false,
+            },
+          ],
+          // 不允许对构造函数属性参数进行不必要的赋值。
+          "ts/no-unnecessary-parameter-property-assignment": "error",
+          // 不允许使用 不必要的 命名空间限定词，包括：enum 和 namespace
+          "ts/no-unnecessary-qualifier": "error",
+          // 不允许使用 不必要的 模板表达式
+          "ts/no-unnecessary-template-expression": "error",
+          // 不允许使用等于默认值的类型参数。
+          "ts/no-unnecessary-type-arguments": "error",
+          // 不允许没有必要的类型断言
+          "ts/no-unnecessary-type-assertion": [
+            "error",
+            {
+              // 不检查字面常量断言
+              checkLiteralConstAssertions: false,
+              // 要忽略检查的类型名称列表
+              typesToIgnore: [],
+            },
+          ],
+          // 不允许对泛型类型施加不必要的约束
+          "ts/no-unnecessary-type-constraint": "error",
         },
         // 传递给typescript配置来启用类型感知规则
         tsconfigPath: "tsconfig.json",
@@ -348,6 +400,19 @@ export function typescript(status = "default") {
           {
             // 忽略某些TypeScript声明类型之间的声明合并
             ignoreDeclarationMerge: true,
+          },
+        ],
+        // 不允许变量声明，已经在外部作用域中声明的变量。
+        "no-shadow": "off",
+        "ts/no-shadow": [
+          "error",
+          {
+            // 包含 type 和 function
+            hoist: "functions-and-types",
+            // 忽略与变量同名的类型
+            ignoreTypeValueShadow: true,
+            // 忽略与变量同名的函数参数
+            ignoreFunctionTypeParameterNameValueShadow: true,
           },
         ],
       },
