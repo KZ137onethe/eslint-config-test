@@ -480,7 +480,7 @@ export function typescript(status = "default") {
             // 检查类型引用
             typedefs: true,
             // 不忽略类型引用
-            ignoreTypeReference: false,
+            ignoreTypeReferences: false,
           },
         ],
         // 禁止使用不必要的构造函数

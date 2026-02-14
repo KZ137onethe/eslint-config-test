@@ -22,7 +22,7 @@ export default antfu(
         tabWidth: 2,
       },
     },
-    javascript: false,
+    javascript: undefined,
     ...typescript("on"),
   },
   {
