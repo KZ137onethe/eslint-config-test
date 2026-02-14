@@ -1,5 +1,6 @@
 {
   "name": "eslint-config",
+  "type": "module",
   "version": "1.0.0",
   "packageManager": "pnpm@10.15.1",
   "description": "",
@@ -7,11 +8,11 @@
   "license": "ISC",
   "keywords": [],
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "lint": "npx eslint",
     "lint:fix": "npx eslint --fix",
-    "view:rules": "npx @eslint/config-inspector"
+    "view:rules": "npx @eslint/config-inspector",
+    "check:rules": "npx eslint -o ./logs/info.log"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",

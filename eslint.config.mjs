@@ -11,9 +11,12 @@ export default antfu(
     gitignore: true,
     // 定制规则，参考：https://eslint.style/rules?
     stylistic: {
-      indent: 2, // 缩进为 2
-      quotes: "double", // 使用双引号
-      semi: true, // 需要分号
+      // 缩进为 2
+      "indent": 2,
+      // 使用双引号
+      "quotes": "double",
+      // 需要分号
+      "semi": true,
       "max-len": {
         code: 100,
         tabWidth: 2,

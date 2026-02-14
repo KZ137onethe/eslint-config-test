@@ -7,17 +7,17 @@ interface Foo {
 const x: string[] = ["a", "b"];
 const _y: readonly string[] = ["a", "b"];
 
-let a = "a12";
+const a = "a12";
 
 try {
   // @ts-expect-error: b不存在
-  let _a_1 = a + b;
+  const _a_1 = a + b;
 }
 catch (e) {
 
 }
 
-let _xx = "abc" as const;
+const _xx = "abc" as const;
 
 type NumAndStr = number | string;
 interface O1 {

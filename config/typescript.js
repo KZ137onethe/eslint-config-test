@@ -1,21 +1,20 @@
-/*
-	eslint typescript 规则
-	不使用的插件（明确禁用）
-		1. no-unused-vars
-		2. consistent-return
-		3. member-ordering
-		4. no-dupe-class-members
-		5. no-invalid-this
-  没有启用的插件（没有配置该规则）
-		1. no-non-null-assertion
-		2. no-restricted-imports
-		3. no-restricted-types
-	废弃的插件
-		1. no-empty-interface
-		2. no-loss-of-precision
-		3. no-type-alias
-*/
-
+/**
+ * eslint typescript 规则
+ * 不使用的插件（明确禁用）
+ *  1. no-unused-vars
+ *  2. consistent-return
+ *  3. member-ordering
+ *  4. no-dupe-class-members
+ *  5. no-invalid-this
+ * 没有启用的插件（没有配置该规则）
+ *  1. no-non-null-assertion
+ *  2. no-restricted-imports
+ *  3. no-restricted-types
+ * 废弃的插件
+ *  1. no-empty-interface
+ *  2. no-loss-of-precision
+ *  3. no-type-alias
+ */
 export function typescript(status = "default") {
   if (status === "default") return {};
   if (status === "off") {
@@ -126,7 +125,7 @@ export function typescript(status = "default") {
             },
             // 强制 所有的常量变量 格式为 "UPPER_CASE" "snake_case"
             {
-              format: ["UPPER_CASE", "snake_case"],
+              format: ["UPPER_CASE", "camelCase"],
               modifiers: ["const"],
               selector: ["variable"],
             },
@@ -330,6 +329,8 @@ export function typescript(status = "default") {
           ],
           // 不允许对泛型类型施加不必要的约束
           "ts/no-unnecessary-type-constraint": "error",
+          // 不允许没有必要的类型转换
+          "ts/no-unnecessary-type-conversion": "error",
         },
         // 传递给typescript配置来启用类型感知规则
         tsconfigPath: "tsconfig.json",
@@ -348,7 +349,12 @@ export function typescript(status = "default") {
         "ts/default-param-last": "error",
         // 尽可能使用点运算符
         "dot-notation": "off",
-        "ts/dot-notation": ["error"],
+        "ts/dot-notation": [
+          "error",
+          {
+            allowKeywords: false,
+          },
+        ],
         // 在变量声明时需要初始化
         "init-declarations": "off",
         "ts/init-declarations": ["error", "always"],
@@ -374,7 +380,7 @@ export function typescript(status = "default") {
         ],
         // 不允许使用类似于 eval 的函数
         "no-implied-eval": "off",
-        "ts/no-implied-eval": "error",
+        // "ts/no-implied-eval": "error",
         // 不允许在循环语句中包含不安全引用的函数声明
         "no-loop-func": "off",
         "ts/no-loop-func": "error",

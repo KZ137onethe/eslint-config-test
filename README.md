@@ -9,4 +9,3 @@
 ### Typescript
 
 **Typescript 配置项** 来源于[typescript-eslint](https://github.com/typescript-eslint/typescript-eslint)这个开源项目，具体规则可以参考 https://typescript-eslint.io/rules/
-
