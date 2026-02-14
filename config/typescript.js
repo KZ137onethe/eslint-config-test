@@ -6,15 +6,19 @@
  *  3. member-ordering
  *  4. no-dupe-class-members
  *  5. no-invalid-this
+ *  6. no-useless-default-assignment
+ *  7. parameter-properties
  * 没有启用的插件（没有配置该规则）
  *  1. no-non-null-assertion
  *  2. no-restricted-imports
  *  3. no-restricted-types
  *  4. no-unnecessary-type-parameters
+ *  5. no-unused-vars
  * 废弃的插件
  *  1. no-empty-interface
  *  2. no-loss-of-precision
  *  3. no-type-alias
+ *  4. no-var-requires
  */
 export function typescript(status = "default") {
   if (status === "default") return {};
@@ -358,6 +362,18 @@ export function typescript(status = "default") {
           "ts/no-unsafe-type-assertion": "error",
           // 要求 一元否定 接受一个数字
           "ts/no-unsafe-unary-minus": "error",
+          // 不禁止使用永远不会使用的默认值。
+          "ts/no-useless-default-assignment": "off",
+          // 禁止导出不改变模块文件中任何内容的空文件
+          "ts/no-useless-empty-export": "error",
+          // 禁止使用容易混淆的内置原始类包装器。
+          "ts/no-wrapper-object-types": "error",
+          // 强制非空断言优先于显式类型断言
+          "ts/non-nullable-type-assertion-style": "error",
+          // 不要求和不禁止在类构造函数中设置参数属性
+          "ts/parameter-properties": "off",
+          // 强制使用 as const 类型而不是字面类型。
+          "ts/prefer-as-const": "error",
         },
         // 传递给typescript配置来启用类型感知规则
         tsconfigPath: "tsconfig.json",
@@ -454,6 +470,28 @@ export function typescript(status = "default") {
         // 禁止使用未使用的私有类成员。
         "no-unused-private-class-members": "off",
         "ts/no-unused-private-class-members": "error",
+        // 禁止在变量定义之前使用它
+        "no-use-before-define": "off",
+        "ts/no-use-before-define": [
+          "error",
+          {
+            // 检查对枚举的引用。
+            enums: true,
+            // 检查类型引用
+            typedefs: true,
+            // 不忽略类型引用
+            ignoreTypeReference: false,
+          },
+        ],
+        // 禁止使用不必要的构造函数
+        "no-useless-constructor": "off",
+        "ts/no-useless-constructor": "error",
+        // 禁止将非 Error 值作为异常抛出
+        "no-throw-literal": "off",
+        "ts/only-throw-error": "error",
+        // 优先从数组和对象中使用解构，而不是直接访问
+        "prefer-destructuring": "off",
+        "ts/prefer-destructuring": "error",
       },
     };
   }
