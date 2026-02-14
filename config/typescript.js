@@ -374,6 +374,38 @@ export function typescript(status = "default") {
           "ts/parameter-properties": "off",
           // 强制使用 as const 类型而不是字面类型。
           "ts/prefer-as-const": "error",
+          // 必须显式初始化每个枚举成员
+          "ts/prefer-enum-initializers": "error",
+          // 进行单个查找时，强制使用 Array.prototype.find() 而不是 Array.prototype.filter() 后跟 [0]
+          "ts/prefer-find": "error",
+          // 尽量使用 for...of 循环，而不是标准的for循环
+          "ts/prefer-for-of": "error",
+          // 强制使用函数类型而不是带有调用签名的接口。
+          "ts/prefer-function-type": "error",
+          // 强制使用 includes 方法，而不是使用 indexOf 方法
+          "ts/prefer-includes": "error",
+          // 要求所有枚举成员均为字面值。
+          "ts/prefer-literal-enum-member": "error",
+          // 在声明 typescript 模块时，需要使用的时 namespace 关键字，而不是 module 关键字
+          "ts/prefer-namespace-keyword": "error",
+          // 强制使用空值合并运算符(??)，而不是逻辑赋值或(||)链式调用。
+          "ts/prefer-nullish-coalescing": [
+            "error",
+            {
+              // 不忽略任何可以通过使用空值合并运算符简化的三元表达式。
+              ignoreTernaryTests: false,
+              // 不忽略任何可以通过使用空值合并运算符简化的 if 语句
+              ignoreIfStatements: false,
+              // 忽略位于条件测试中的用例。
+              ignoreConditionalTests: true,
+              // 忽略混合逻辑表达式（包含 && ）中的任何逻辑或表达式
+              ignoreMixedLogicalExpressions: true,
+              // 忽略部分
+              ignorePrimitives: { bigint: true, boolean: false, number: false, string: false },
+              // 不忽略 Boolean 构造函数部分
+              ignoreBooleanCoercion: false,
+            },
+          ],
         },
         // 传递给typescript配置来启用类型感知规则
         tsconfigPath: "tsconfig.json",
