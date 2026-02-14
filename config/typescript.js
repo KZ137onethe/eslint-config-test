@@ -10,6 +10,7 @@
  *  1. no-non-null-assertion
  *  2. no-restricted-imports
  *  3. no-restricted-types
+ *  4. no-unnecessary-type-parameters
  * 废弃的插件
  *  1. no-empty-interface
  *  2. no-loss-of-precision
@@ -331,6 +332,32 @@ export function typescript(status = "default") {
           "ts/no-unnecessary-type-constraint": "error",
           // 不允许没有必要的类型转换
           "ts/no-unnecessary-type-conversion": "error",
+          // 禁止使用类型为 any 值调用函数。
+          "ts/no-unsafe-argument": "error",
+          // 禁止将类型为 any 值赋给变量和属性。
+          "ts/no-unsafe-assignment": "error",
+          // 禁止调用类型为 any 的值
+          "ts/no-unsafe-call": "error",
+          // 禁止不安全的声明合并
+          "ts/no-unsafe-declaration-merging": "error",
+          // 禁止将枚举值与非枚举值进行比较。
+          "ts/no-unsafe-enum-comparison": "error",
+          // 禁止使用不安全的 Function 类型
+          "ts/no-unsafe-function-type": "error",
+          // 禁止访问为 any 的类型的成员属性
+          "ts/no-unsafe-member-access": [
+            "error",
+            {
+              // 允许对 any 值使用 ?. 可选链。
+              allowOptionalChaining: true,
+            },
+          ],
+          // 禁止函数返回 any 类型
+          "ts/no-unsafe-return": "error",
+          // 禁止使用会缩小类型的类型断言
+          "ts/no-unsafe-type-assertion": "error",
+          // 要求 一元否定 接受一个数字
+          "ts/no-unsafe-unary-minus": "error",
         },
         // 传递给typescript配置来启用类型感知规则
         tsconfigPath: "tsconfig.json",
@@ -421,6 +448,12 @@ export function typescript(status = "default") {
             ignoreFunctionTypeParameterNameValueShadow: true,
           },
         ],
+        // 禁止使用未使用的表达式。
+        "no-unused-expressions": "off",
+        "ts/no-unused-expressions": "error",
+        // 禁止使用未使用的私有类成员。
+        "no-unused-private-class-members": "off",
+        "ts/no-unused-private-class-members": "error",
       },
     };
   }
