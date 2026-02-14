@@ -8,4 +8,10 @@
 
 ### Typescript
 
-**Typescript 配置项** 来源于[typescript-eslint](https://github.com/typescript-eslint/typescript-eslint)这个开源项目，具体规则可以参考 https://typescript-eslint.io/rules/
+**Typescript 配置项** 来源于 [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) 这个开源项目，具体规则可以参考 https://typescript-eslint.io/rules/
+
+typescript-eslint 有一个[训练场](https://typescript-eslint.io/play/)，可以在线理解规则的用法
+
+项目中规则的配置可以从 `eslint.config.mjs` -> `/config/typescript.js` 中看到
+
+🔁规则配置会随个人开发的习惯而动态变化
