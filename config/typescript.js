@@ -8,6 +8,10 @@
  *  5. no-invalid-this
  *  6. no-useless-default-assignment
  *  7. parameter-properties
+ *  8. prefer-readonly
+ *  9. related-getter-setter-pairs
+ *  10. triple-slash-reference
+ *  11. require-await
  * 没有启用的插件（没有配置该规则）
  *  1. no-non-null-assertion
  *  2. no-restricted-imports
@@ -19,6 +23,9 @@
  *  2. no-loss-of-precision
  *  3. no-type-alias
  *  4. no-var-requires
+ *  5. prefer-ts-expect-error
+ *  6. sort-type-constituents
+ *  7. typedef
  */
 export function typescript(status = "default") {
   if (status === "default") return {};
@@ -406,6 +413,103 @@ export function typescript(status = "default") {
               ignoreBooleanCoercion: false,
             },
           ],
+          // 强制使用简洁的可选链式表达式，而不是链式逻辑与、取反逻辑或或空对象。（这里使用默认的配置）
+          "ts/prefer-optional-chain": "error",
+          // 私有成员在构造函数之外从未被修改，则要求将其标记为 readonly (禁用)
+          "ts/prefer-readonly": "off",
+          // 要求函数参数类型为 readonly ，以防止意外修改输入。(需要将函数参数中的数组，元组，对象，函数标记为只读)
+          "ts/prefer-readonly-parameter-types": "error",
+          // 调用 数组的 reduce 时强制使用类型参数，而不是使用类型断言。
+          "ts/prefer-reduce-type-parameter": "error",
+          // 如果正则表达式没有使用全局标志，则强制使用 RegExp#exec 而不是 String#match 。
+          "ts/prefer-regexp-exec": "error",
+          // 强制规定仅当返回 this 类型数据时才使用 this 方法。
+          "ts/prefer-return-this-type": "error",
+          // 强制使用 String#startsWith 和 String#endsWith 而不是其他等效的子字符串检查方法。
+          "ts/prefer-string-starts-ends-with": "error",
+          // 要求所有返回 Promise 的函数或方法都必须标记为 async。(这里使用默认的配置)
+          "ts/promise-function-async": "error",
+          // 不要求 get() 类型应该可以赋值给其等效的 set() 类型
+          "ts/related-getter-setter-pairs": "off",
+          // 要求数组排序 sort方法 和 toSorted方法 调用始终提供 比较函数
+          "ts/require-array-sort-compare": [
+            "error",
+            {
+              // 忽略所有元素均为字符串的数组
+              ignoreStringArrays: true,
+            },
+          ],
+          // 要求加法运算的两个操作数类型相同，且必须是 bigint 、 number 或 string 。
+          "ts/restrict-plus-operands": [
+            "error",
+            {
+              allowAny: false,
+              allowBoolean: false,
+              allowNullish: false,
+              allowNumberAndString: false,
+              allowRegExp: false,
+              skipCompoundAssignments: false,
+            },
+          ],
+          // 强制模板字面表达式为 string 类型。
+          "ts/restrict-template-expressions": [
+            "error",
+            {
+              allowNumber: true,
+              allowBoolean: true,
+              allowAny: false,
+              allowNullish: true,
+              allowRegExp: false,
+              allowNever: false,
+              allowArray: false,
+            },
+          ],
+          // 强制执行对已兑现承诺的持续等待。
+          "ts/return-await": ["error", "always"],
+          // 禁止在布尔表达式中使用某些类型
+          "ts/strict-boolean-expressions": [
+            "error",
+            {
+              allowString: true,
+              allowNumber: true,
+              allowNullableObject: true,
+              allowNullableBoolean: false,
+              allowNullableString: false,
+              allowNullableNumber: false,
+              allowNullableEnum: false,
+              allowAny: false,
+            },
+          ],
+          // 禁止在接受 void 函数的位置传递返回值的函数。(这里使用默认的配置)
+          "ts/strict-void-return": "error",
+          // 要求 switch-case 语句必须穷尽所有可能的情况。
+          "ts/switch-exhaustiveness-check": [
+            "error",
+            {
+              requireDefaultForNonUnion: true,
+              considerDefaultExhaustiveForUnions: false,
+              requireDefaultForNonUnion: false,
+            },
+          ],
+          // 可以使用某些三斜杠指令
+          "ts/triple-slash-reference": "off",
+          // 强制要求未绑定方法在其预期的作用域内被调用。
+          "ts/unbound-method": [
+            "error",
+            {
+              ignoreStatic: false,
+            },
+          ],
+          // 不允许两个可以合并为一个的重载，可以使用联合或可选/剩余参数。
+          "ts/unified-signatures": [
+            "error",
+            {
+              ignoreDifferentlyNamedParameters: false,
+              ignoreOverloadsWithDifferentJSDoc: true,
+            },
+          ],
+          // 强制将 Promise 拒绝回调中的参数类型定义为 unknown
+          "ts/use-unknown-in-catch-callback-variable": "error",
         },
         // 传递给typescript配置来启用类型感知规则
         tsconfigPath: "tsconfig.json",
@@ -524,6 +628,12 @@ export function typescript(status = "default") {
         // 优先从数组和对象中使用解构，而不是直接访问
         "prefer-destructuring": "off",
         "ts/prefer-destructuring": "error",
+        // 要求使用 Error 对象作为 Promise 拒绝原因。(使用默认配置)
+        "prefer-promise-reject-errors": "off",
+        "ts/prefer-promise-reject-errors": "error",
+        // 禁止使用不返回 Promise 且没有 await 表达式的异步函数。
+        "require-await": "off",
+        "ts/require-await": "off",
       },
     };
   }
