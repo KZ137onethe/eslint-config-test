@@ -1,4 +1,4 @@
-function getCurrentTime(options?: { format?: string }) {
+function getCurrentTime(options?: { readonly format?: string }) {
   const INIT_VALUE = new Date().toLocaleTimeString("zh-CN");
 
   if (options?.format !== undefined) {
@@ -7,14 +7,14 @@ function getCurrentTime(options?: { format?: string }) {
   return INIT_VALUE;
 }
 
-function getCurrentDate(options?: { format?: string }) {
+function getCurrentDate(options?: { readonly format?: string }) {
   const INIT_VALUE = new Date().toLocaleDateString("zh-CN");
   // 短月份长度
   const MONTH_SHORT_LEN = 1;
   const [year, month, day] = INIT_VALUE.split("/");
   let defaultVal = INIT_VALUE;
   if (month.length === MONTH_SHORT_LEN) {
-    defaultVal = `${year}/0${month}/${day}`;
+    defaultVal = `${year}/${month}/${day}`;
   }
 
   if (options?.format !== undefined) {
@@ -24,11 +24,11 @@ function getCurrentDate(options?: { format?: string }) {
 }
 
 interface DateCompareOpts {
-  calc: "less" | "more" | "equal" | "congruent";
+  readonly calc: "less" | "more" | "equal" | "congruent";
 }
 
-function compareDate(preVal: Date | string, nextVal: Date | string, options?: DateCompareOpts) {
-  const getUtcVal = (val: string): [number, number, number] => val.split(/(\d{4})(\d{2})(\d{2})/).filter(Boolean).map((item, idx) => {
+function compareDate(readonly preVal: Date | string, readonly nextVal: Date | string, options?: DateCompareOpts) {
+  const getUtcVal = (val: string): [number, number, number] => (val.split(/(\d{4})(\d{2})(\d{2})/).filter(Boolean) as [string, string, string]).map((item, idx) => {
     const UTC_SPECIAL_POS = 1;
     const REDUCE_VAL = 1;
     if (idx === UTC_SPECIAL_POS) {
@@ -46,7 +46,6 @@ const date = getCurrentDate();
 
 console.log(`${date} ${time}`);
 
-// eslint-disable-next-line ts/naming-convention
-enum foo {
+enum Foo {
   SendCond = 1000,
 }

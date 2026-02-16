@@ -24,6 +24,8 @@ importers:
         specifier: 'catalog:'
         version: 9.39.2
 
+  projects/typescript: {}
+
 packages:
 
   '@antfu/eslint-config@7.2.0':
