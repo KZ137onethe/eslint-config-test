@@ -17,16 +17,20 @@ export default antfu(
       quotes: "double",
       // 需要分号
       semi: true,
-      "max-len": {
-        code: 100,
-        tabWidth: 2,
-      },
     },
     javascript: undefined,
     ...typescript("on"),
   },
   {
     rules: {
+      "style/quote-props": ["error", "as-needed"],
+      "style/max-len": [
+        "error",
+        {
+          code: 100,
+          tabWidth: 2,
+        },
+      ],
       "prefer-const": "warn",
       // 对没有使用的变量，会报 warn 警告
       "no-unused-vars": "off",
